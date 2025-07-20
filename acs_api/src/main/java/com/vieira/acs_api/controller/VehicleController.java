@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.vieira.acs_api.dto.VehicleRequest;
 import com.vieira.acs_api.dto.VehicleStatusRequest;
 import com.vieira.acs_api.model.Vehicle;
+import com.vieira.acs_api.model.VehicleStatus;
 import com.vieira.acs_api.service.VehicleService;
 
 import jakarta.validation.Valid;
@@ -20,7 +21,10 @@ public class VehicleController {
     private final VehicleService vehicleService;
 
     @GetMapping
-    public List<Vehicle> listAll() {
+    public List<Vehicle> listAll(@RequestParam(required = false) VehicleStatus status) {
+        if (status != null) {
+            return vehicleService.findByStatus(status);
+        }
         return vehicleService.findAll();
     }
 
