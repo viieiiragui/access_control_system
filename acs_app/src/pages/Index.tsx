@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { EmployeeForm } from '@/components/EmployeeForm';
+import { EmployeeList } from '@/components/EmployeeList';
 import { Navigation } from '@/components/Navigation';
 import { VehicleForm } from '@/components/VehicleForm';
 import { VehicleTable } from '@/components/VehicleTable';
@@ -30,6 +32,7 @@ const Index = () => {
         return (
           <div>
             <h2 className="text-2xl font-bold mb-6">Gerenciar Funcionários</h2>
+            <EmployeeList />
           </div>
         );
 
@@ -47,6 +50,7 @@ const Index = () => {
             <h2 className="text-2xl font-bold mb-6">
               Cadastro de Funcionários
             </h2>
+            <EmployeeForm />
           </div>
         );
 
