@@ -12,6 +12,8 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
     boolean existsByPlaca(String placa);
 
     List<Vehicle> findByStatus(VehicleStatus status);
+    
+    List<Vehicle> findByStatusOrderByIdAsc(VehicleStatus status);
 
     Optional<Vehicle> findByPlaca(String placa);
 }

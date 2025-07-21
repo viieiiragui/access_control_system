@@ -2,6 +2,7 @@ package com.vieira.acs_api.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,11 +23,11 @@ public class VehicleService {
     private final TripRecordRepository tripRecordRepository;
 
     public List<Vehicle> findAll() {
-        return repository.findAll();
+        return repository.findAll(Sort.by("id"));
     }
 
     public List<Vehicle> findByStatus(VehicleStatus status) {
-        return repository.findByStatus(status);
+        return repository.findByStatusOrderByIdAsc(status);
     }
 
     public Vehicle findByPlaca(String placa) {
