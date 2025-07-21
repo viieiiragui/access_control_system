@@ -2,6 +2,7 @@ package com.vieira.acs_api.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.vieira.acs_api.exception.DuplicateCnhException;
@@ -17,7 +18,7 @@ public class EmployeeService {
     private final EmployeeRepository repository;
 
     public List<Employee> findAll() {
-        return repository.findAll();
+        return repository.findAll(Sort.by("nome"));
     }
 
     public Employee findById(Long id) {
