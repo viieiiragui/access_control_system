@@ -26,6 +26,11 @@ public class VehicleService {
         return repository.findByStatus(status);
     }
 
+    public Vehicle findByPlaca(String placa) {
+        return repository.findByPlaca(placa)
+                .orElseThrow(() -> new VehicleNotFoundException(placa));
+    }
+
     public Vehicle create(Vehicle vehicle) {
         if (repository.existsByPlaca(vehicle.getPlaca())) {
             throw new DuplicateLicensePlateException(vehicle.getPlaca());

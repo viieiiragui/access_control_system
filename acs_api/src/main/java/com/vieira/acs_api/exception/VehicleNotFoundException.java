@@ -8,4 +8,8 @@ public class VehicleNotFoundException extends RuntimeException {
     public VehicleNotFoundException(Long id) {
         super("Veículo não encontrado com ID: " + id);
     }
+    
+    public VehicleNotFoundException(String licensePlate) {
+        super("Veículo não encontrado com placa: " + licensePlate);
+    }
 }
