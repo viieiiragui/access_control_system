@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 152 65% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 152 65% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 152 65% 15%;
+
+    --primary: 152 65% 35%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 152 55% 50%;
+
+    --secondary: 152 20% 95%;
+    --secondary-foreground: 152 65% 25%;
+
+    --muted: 152 20% 95%;
+    --muted-foreground: 152 25% 47%;
+
+    --accent: 152 65% 35%;
+    --accent-foreground: 0 0% 98%;
+
+    --success: 152 65% 35%;
+    --success-foreground: 0 0% 98%;
+
+    --warning: 36 95% 55%;
+    --warning-foreground: 0 0% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 152 30% 88%;
+    --input: 152 30% 88%;
+    --ring: 152 65% 35%;
+
+    /* Gradientes baseados no logo AGT */
+    --gradient-primary: linear-gradient(135deg, hsl(152 65% 35%), hsl(152 55% 50%));
+    --gradient-success: linear-gradient(135deg, hsl(152 65% 35%), hsl(152 70% 45%));
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(152 20% 98%));
+    --gradient-agt: linear-gradient(135deg, hsl(152 65% 35%), hsl(36 95% 55%), hsl(152 55% 50%));
+    
+    /* Sombras com cores AGT */
+    --shadow-card: 0 4px 6px -1px hsl(152 65% 15% / 0.1), 0 2px 4px -1px hsl(152 65% 15% / 0.06);
+    --shadow-elevated: 0 20px 25px -5px hsl(152 65% 15% / 0.1), 0 10px 10px -5px hsl(152 65% 15% / 0.04);
+    --shadow-glow: 0 0 20px hsl(152 65% 35% / 0.3);
+
+    /* Transições suaves */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s ease-out;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 152 30% 8%;
+    --foreground: 152 20% 95%;
+
+    --card: 152 30% 10%;
+    --card-foreground: 152 20% 95%;
+
+    --popover: 152 30% 10%;
+    --popover-foreground: 152 20% 95%;
+
+    --primary: 152 65% 45%;
+    --primary-foreground: 152 30% 8%;
+    --primary-glow: 152 55% 60%;
+
+    --secondary: 152 30% 15%;
+    --secondary-foreground: 152 20% 95%;
+
+    --muted: 152 30% 15%;
+    --muted-foreground: 152 20% 65%;
+
+    --accent: 152 65% 45%;
+    --accent-foreground: 0 0% 98%;
+
+    --success: 152 65% 45%;
+    --success-foreground: 0 0% 98%;
+
+    --warning: 36 95% 60%;
+    --warning-foreground: 0 0% 98%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 152 20% 95%;
+
+    --border: 152 30% 18%;
+    --input: 152 30% 18%;
+    --ring: 152 65% 45%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
