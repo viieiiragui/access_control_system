@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
 import { Navigation } from '@/components/Navigation';
+import { VehicleForm } from '@/components/VehicleForm';
+import { VehicleTable } from '@/components/VehicleTable';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -20,6 +22,7 @@ const Index = () => {
         return (
           <div>
             <h2 className="text-2xl font-bold mb-6">Gerenciar Veículos</h2>
+            <VehicleTable />
           </div>
         );
 
@@ -34,6 +37,7 @@ const Index = () => {
         return (
           <div>
             <h2 className="text-2xl font-bold mb-6">Cadastro de Veículos</h2>
+            <VehicleForm />
           </div>
         );
 
