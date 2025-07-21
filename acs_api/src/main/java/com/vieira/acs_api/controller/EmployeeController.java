@@ -24,16 +24,15 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<Employee> create(@RequestBody @Valid EmployeeRequest req) {
+    public ResponseEntity<Employee> create(@Valid @RequestBody EmployeeRequest req) {
         Employee employee = req.toEntity();
         Employee saved = employeeService.create(employee);
         return ResponseEntity.ok(saved);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Employee> putMethodName(@PathVariable Long id, @Valid @RequestBody EmployeeRequest req) {
+    public ResponseEntity<Employee> update(@PathVariable Long id, @Valid @RequestBody EmployeeRequest req) {
         Employee employee = req.toEntity();
-        employee.setId(id);
         Employee updated = employeeService.update(id, employee);
         return ResponseEntity.ok(updated);
     }

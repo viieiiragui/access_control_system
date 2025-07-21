@@ -20,9 +20,14 @@ public class EmployeeService {
         return repository.findAll();
     }
 
+    public Employee findById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
+    }
+
     public Employee create(Employee employee) {
         if (repository.existsByCnh(employee.getCnh())) {
-            throw new DuplicateCnhException(employee.getCnh());
+            throw new DuplicateCnhException();
         }
         return repository.save(employee);
     }
@@ -30,7 +35,14 @@ public class EmployeeService {
     public Employee update(Long id, Employee updated) {
         Employee e = repository.findById(id)
                 .orElseThrow(() -> new EmployeeNotFoundException(id));
+
+        // Verifica se a CNH foi alterada e se já existe para outro funcionário
+        if (!e.getCnh().equals(updated.getCnh()) && repository.existsByCnh(updated.getCnh())) {
+            throw new DuplicateCnhException();
+        }
+
         e.setNome(updated.getNome());
+        e.setCnh(updated.getCnh());
         return repository.save(e);
     }
 
