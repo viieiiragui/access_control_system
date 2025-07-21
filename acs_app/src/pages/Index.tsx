@@ -1,15 +1,25 @@
 import { useState } from 'react';
 
 import { DashboardStats } from '@/components/DashboardStats';
+import { DepartureDialog } from '@/components/DepartureDialog';
 import { EmployeeForm } from '@/components/EmployeeForm';
 import { EmployeeList } from '@/components/EmployeeList';
 import { HistoryTable } from '@/components/HistoryTable';
 import { Navigation } from '@/components/Navigation';
 import { QuickAccessPanel } from '@/components/QuickAccessPanel';
+import { ReturnDialog } from '@/components/ReturnDialog';
 import { VehicleForm } from '@/components/VehicleForm';
 import { VehicleTable } from '@/components/VehicleTable';
+import { useSystemContext } from '@/contexts/SystemContext';
 
 const Index = () => {
+  const {
+    departureData,
+    returnData,
+    handleCloseDepartureDialog,
+    handleCloseReturnDialog,
+  } = useSystemContext();
+
   const [activeTab, setActiveTab] = useState('dashboard');
 
   const renderContent = () => {
@@ -71,6 +81,16 @@ const Index = () => {
       <div className="container mx-auto px-4 pb-8 max-w-7xl">
         {renderContent()}
       </div>
+
+      <DepartureDialog
+        isOpen={departureData !== null}
+        onClose={handleCloseDepartureDialog}
+      />
+
+      <ReturnDialog
+        isOpen={returnData !== null}
+        onClose={handleCloseReturnDialog}
+      />
     </div>
   );
 };
