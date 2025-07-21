@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,10 +21,6 @@ import com.vieira.acs_api.repository.TripRecordRepository;
 
 import lombok.RequiredArgsConstructor;
 
-/**
- * Service responsável pela gestão de registros de viagem.
- * Gerencia saídas e retornos de veículos do pátio.
- */
 @Service
 @RequiredArgsConstructor
 public class TripRecordService {
@@ -32,7 +29,7 @@ public class TripRecordService {
     private final EmployeeService employeeService;
 
     public List<TripRecord> findAll() {
-        return repository.findAll();
+        return repository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
     public Optional<TripRecord> findLastOpenTripByVehicleId(Long idVeiculo) {
@@ -59,19 +56,11 @@ public class TripRecordService {
         repository.deleteById(id);
     }
 
-    /**
-     * Cria um novo registro de saída de viagem.
-     * Valida se o veículo está no pátio e atualiza seu status para EM_VIAGEM.
-     * 
-     * @param req Dados da solicitação de saída
-     * @return Registro de viagem criado
-     * @throws ResponseStatusException se o veículo não estiver no pátio
-     */
     @Transactional
     public TripRecord createTripDepart(TripDepartRequest req) {
         Vehicle vehicle = vehicleService.findByPlaca(req.getPlacaVeiculo());
         Employee driver = employeeService.findById(req.getIdMotorista());
-        
+
         if (vehicle.getStatus() != VehicleStatus.NO_PATIO) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Veículo fora do pátio.");
         }
@@ -89,19 +78,10 @@ public class TripRecordService {
         return saved;
     }
 
-    /**
-     * Finaliza uma viagem através da placa do veículo.
-     * Valida se o veículo está em viagem e atualiza seu status para NO_PATIO.
-     * 
-     * @param placaVeiculo Placa do veículo que está retornando
-     * @return Registro de viagem atualizado com data de retorno
-     * @throws ResponseStatusException se o veículo não estiver em viagem
-     * @throws TripRecordNotFoundException se não houver viagem ativa
-     */
     @Transactional
     public TripRecord finalizeTripByVehiclePlate(String placaVeiculo) {
         Vehicle vehicle = vehicleService.findByPlaca(placaVeiculo);
-        
+
         if (vehicle.getStatus() != VehicleStatus.EM_VIAGEM) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Veículo se encontra no pátio.");
         }
@@ -116,7 +96,7 @@ public class TripRecordService {
         activeTripRecord.setDataRetorno(Instant.now());
         TripRecord updatedRecord = repository.save(activeTripRecord);
         vehicleService.updateStatus(vehicle.getId(), VehicleStatus.NO_PATIO);
-        
+
         return updatedRecord;
     }
 }
