@@ -27,7 +27,7 @@ public class TripRecord {
     @Column(nullable = false)
     private String destino;
 
-    @Column(nullable = false)
+    @Column()
     private String passageiros;
 
     @Column(name = "data_saida", nullable = false)

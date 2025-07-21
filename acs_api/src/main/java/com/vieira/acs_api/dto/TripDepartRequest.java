@@ -2,6 +2,7 @@ package com.vieira.acs_api.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -19,6 +20,6 @@ public class TripDepartRequest {
     @NotBlank
     private String destino;
 
-    @NotBlank
+    @Nullable
     private String passageiros;
 }
