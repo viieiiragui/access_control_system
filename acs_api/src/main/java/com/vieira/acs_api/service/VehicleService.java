@@ -6,9 +6,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vieira.acs_api.exception.DuplicateLicensePlateException;
+import com.vieira.acs_api.exception.VehicleHasActiveTripException;
 import com.vieira.acs_api.exception.VehicleNotFoundException;
 import com.vieira.acs_api.model.Vehicle;
 import com.vieira.acs_api.model.VehicleStatus;
+import com.vieira.acs_api.repository.TripRecordRepository;
 import com.vieira.acs_api.repository.VehicleRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class VehicleService {
     private final VehicleRepository repository;
+    private final TripRecordRepository tripRecordRepository;
 
     public List<Vehicle> findAll() {
         return repository.findAll();
@@ -48,6 +51,15 @@ public class VehicleService {
     }
 
     public void delete(Long id) {
+        // Verifica se o veículo existe
+        repository.findById(id)
+                .orElseThrow(() -> new VehicleNotFoundException(id));
+        
+        // Verifica se o veículo tem viagens ativas
+        if (tripRecordRepository.findFirstByIdVeiculoAndDataRetornoIsNullOrderByIdDesc(id).isPresent()) {
+            throw new VehicleHasActiveTripException(id);
+        }
+        
         repository.deleteById(id);
     }
 }
