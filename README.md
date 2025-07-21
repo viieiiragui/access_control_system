@@ -4,17 +4,17 @@ Sistema completo de controle de acesso de veículos com API REST em Spring Boot 
 
 ## 📋 Índice
 
-- [Visão Geral](#visão-geral)
-- [Arquitetura](#arquitetura)
-- [Tecnologias](#tecnologias)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Instalação e Execução](#instalação-e-execução)
-- [API - Backend](#api---backend)
-- [App - Frontend](#app---frontend)
-- [Funcionalidades](#funcionalidades)
-- [Endpoints da API](#endpoints-da-api)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
+- [Visão Geral](#-visão-geral)
+- [Arquitetura](#️-arquitetura)
+- [Tecnologias](#-tecnologias)
+- [Estrutura do Projeto](#-estrutura-do-projeto)
+- [Instalação e Execução](#-instalação-e-execução)
+- [Variáveis de Ambiente](#-variáveis-de-ambiente)
+- [API - Backend](#️-api---backend)
+- [App - Frontend](#-app---frontend)
+- [Funcionalidades](#-funcionalidades)
+- [Endpoints da API](#-endpoints-da-api)
+- [Licença](#-licença)
 
 ## 🎯 Visão Geral
 
@@ -40,6 +40,7 @@ O projeto segue uma arquitetura de microsserviços com separação clara entre b
 - **Spring Data JPA**
 - **Spring Web**
 - **Maven** (gerenciamento de dependências)
+- **Supabase** (banco de dados PostgreSQL)
 
 ### Frontend (acs_app)
 - **React 18**
@@ -93,6 +94,7 @@ access_control_system/
 - **Node.js 18+**
 - **npm** ou **yarn**
 - **Maven 3.6+**
+- **Conta no Supabase** (para banco de dados PostgreSQL)
 
 ### 🔧 Configuração do Backend
 
@@ -101,12 +103,16 @@ access_control_system/
 cd acs_api
 ```
 
-2. Execute a aplicação Spring Boot:
+2. Configure as variáveis de ambiente no `application.properties` (veja a seção [Variáveis de Ambiente](#-variáveis-de-ambiente))
+
+3. Execute a aplicação Spring Boot:
 ```powershell
 .\mvnw.cmd spring-boot:run
 ```
 
 A API estará disponível em: `http://localhost:8080`
+
+> **💡 Dica**: Na primeira execução, verifique os logs para confirmar que a conexão com o banco foi estabelecida corretamente.
 
 ### 🎨 Configuração do Frontend
 
@@ -120,12 +126,45 @@ cd acs_app
 npm install
 ```
 
-3. Execute em modo de desenvolvimento:
+3. Configure as variáveis de ambiente criando um arquivo `.env` (veja a seção [Variáveis de Ambiente](#-variáveis-de-ambiente))
+
+4. Execute em modo de desenvolvimento:
 ```powershell
 npm run dev
 ```
 
 A aplicação web estará disponível em: `http://localhost:8081`
+
+## 🔐 Variáveis de Ambiente
+
+### Backend (acs_api)
+
+Configure as seguintes variáveis de ambiente. Você pode definir essas variáveis da forma que te agradar sendo elas:
+
+```
+# Configuração do Banco de Dados Supabase
+DB_HOST=[host-supabase]
+DB_PORT=5432
+DB_NAME=postgres
+DB_USER=postgres
+DB_PASS=[sua-senha-do-supabase]
+```
+
+### Frontend (acs_app)
+
+Crie um arquivo `.env` na raiz do projeto frontend:
+
+```bash
+# URL da API Backend
+VITE_API_BASE_URL=http://localhost:8080/api
+```
+
+### Configuração do Supabase
+
+1. Acesse [Supabase](https://supabase.com) e crie um novo projeto
+2. Obtenha as credenciais de conexão do banco de dados
+3. Configure as variáveis no backend conforme mostrado acima
+4. O Spring Boot criará automaticamente as tabelas necessárias no primeiro startup
 
 ## 🛠️ API - Backend
 
@@ -133,7 +172,7 @@ A aplicação web estará disponível em: `http://localhost:8081`
 
 - **Framework**: Spring Boot 3.5.3
 - **Java Version**: 24
-- **Database**: H2 (em memória para desenvolvimento)
+- **Database**: Supabase (PostgreSQL)
 - **ORM**: Spring Data JPA
 - **Arquitetura**: REST API com padrão MVC
 
