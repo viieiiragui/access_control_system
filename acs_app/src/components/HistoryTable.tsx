@@ -12,18 +12,11 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useSystemContext } from '@/contexts/SystemContext';
-import { useIsMobile } from '@/hooks/use-mobile';
 import type { Employee, Vehicle } from '@/types/vehicleSystem';
 
 export function HistoryTable() {
-  const isMobile = useIsMobile();
-  const {
-    vehicles,
-    employees,
-    trips,
-    handleOpenDepartureDialog,
-    handleOpenReturnDialog,
-  } = useSystemContext();
+  const { vehicles, employees, trips, handleOpenReturnDialog } =
+    useSystemContext();
 
   const mappedVehicles = useMemo((): Record<string, Vehicle> => {
     return vehicles.reduce((acc, vehicle) => {
@@ -71,6 +64,7 @@ export function HistoryTable() {
             <TableHead className="min-w-[120px]">Veículo</TableHead>
             <TableHead className="min-w-[100px]">Placa</TableHead>
             <TableHead className="min-w-[120px]">Responsável</TableHead>
+            <TableHead className="min-w-[120px]">Destino</TableHead>
             <TableHead className="min-w-[100px]">Status</TableHead>
             <TableHead className="min-w-[80px]">Saída</TableHead>
             <TableHead className="min-w-[80px]">Retorno</TableHead>
@@ -99,8 +93,19 @@ export function HistoryTable() {
                   </div>
                 </TableCell>
                 <TableCell>
+                  <div
+                    className="max-w-[150px] truncate"
+                    title={trip.destination || '-'}
+                  >
+                    {trip.destination || '-'}
+                  </div>
+                </TableCell>
+                <TableCell>
                   {trip.returnTime === null ? (
-                    <Badge variant="warning" className="animate-fade-in">
+                    <Badge
+                      variant="warning"
+                      className="animate-fade-in whitespace-nowrap"
+                    >
                       Em Viagem
                     </Badge>
                   ) : (
