@@ -1,8 +1,11 @@
 import { useState } from 'react';
 
+import { DashboardStats } from '@/components/DashboardStats';
 import { EmployeeForm } from '@/components/EmployeeForm';
 import { EmployeeList } from '@/components/EmployeeList';
+import { HistoryTable } from '@/components/HistoryTable';
 import { Navigation } from '@/components/Navigation';
+import { QuickAccessPanel } from '@/components/QuickAccessPanel';
 import { VehicleForm } from '@/components/VehicleForm';
 import { VehicleTable } from '@/components/VehicleTable';
 
@@ -14,8 +17,11 @@ const Index = () => {
       case 'dashboard':
         return (
           <div className="space-y-6">
+            <DashboardStats />
+            <QuickAccessPanel />
             <div>
               <h2 className="text-2xl font-bold mb-4">Controle de Veículos</h2>
+              <HistoryTable />
             </div>
           </div>
         );
